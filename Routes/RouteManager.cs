@@ -1,5 +1,5 @@
-using minimalistArchitecture.Todo;
-namespace minimalistArchitecture;
+using MinimalistArchitecture.Todo;
+namespace MinimalistArchitecture;
 
 public class RouteManager
 {

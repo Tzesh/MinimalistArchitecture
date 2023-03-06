@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using minimalistArchitecture.Todo;
+using MinimalistArchitecture.Todo;
 using Microsoft.OpenApi.Models;
-using minimalistArchitecture;
+using MinimalistArchitecture;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen(options =>
         Contact = new OpenApiContact
         {
             Name = "GitHub",
-            Url = new Uri("https://github.com/tzesh/minimalistArchitecture")
+            Url = new Uri("https://github.com/tzesh/MinimalistArchitecture")
         }
     });
 });
@@ -47,5 +47,5 @@ else
 // use routing
 app.UseHttpsRedirection();
 
-// run the application
+// 
 app.Run();

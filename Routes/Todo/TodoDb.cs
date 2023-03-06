@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace minimalistArchitecture.Todo
+namespace MinimalistArchitecture.Todo
 {
     public class TodoDb : DbContext
     {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using minimalistArchitecture.Abstract;
+using MinimalistArchitecture.Abstract;
 
-namespace minimalistArchitecture.Todo;
+namespace MinimalistArchitecture.Todo;
 public class TodoRoutes : Routes
 {
     // override the RegisterRoutes method
