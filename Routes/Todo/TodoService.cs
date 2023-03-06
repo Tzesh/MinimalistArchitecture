@@ -2,14 +2,18 @@ using Microsoft.EntityFrameworkCore;
 using MinimalistArchitecture.Abstract;
 
 namespace MinimalistArchitecture.Todo;
-public class TodoRoutes : Routes
+public class TodoService : Service
 {
-    // override the RegisterRoutes method
-    new public static void RegisterRoutes(WebApplication app)
+    // constructor
+    public TodoService(WebApplication app) : base(app)
     {
         // create a route group
         RouteGroupBuilder todoItems = app.MapGroup("/todo");
 
+        // add the validation filter to the group
+        todoItems.AddEndpointFilterFactory(ValidationFactory.ValidationFilterFactory);
+
+        // add the routes to the group
         todoItems.MapGet("/", GetAllTodos);
         todoItems.MapGet("/{id}", GetTodo);
         todoItems.MapPost("/", CreateTodo);
@@ -30,7 +34,7 @@ public class TodoRoutes : Routes
                 : TypedResults.NotFound();
     }
 
-    public static async Task<IResult> CreateTodo(TodoDTO todoItemDTO, TodoDb db)
+    public static async Task<IResult> CreateTodo([Validate] TodoDTO todoItemDTO, TodoDb db)
     {
         var todoItem = new Todo
         {
@@ -44,7 +48,7 @@ public class TodoRoutes : Routes
         return TypedResults.Created($"/todoitems/{todoItem.Id}", todoItemDTO);
     }
 
-    public static async Task<IResult> UpdateTodo(int id, TodoDTO todoItemDTO, TodoDb db)
+    public static async Task<IResult> UpdateTodo(int id, [Validate] TodoDTO todoItemDTO, TodoDb db)
     {
         var todo = await db.Todos.FindAsync(id);
 

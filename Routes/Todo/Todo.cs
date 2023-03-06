@@ -1,5 +1,4 @@
-﻿using System;
-namespace MinimalistArchitecture.Todo
+﻿namespace MinimalistArchitecture.Todo
 {
 	public class Todo
 	{

@@ -2,12 +2,16 @@
 using MinimalistArchitecture.Todo;
 using Microsoft.OpenApi.Models;
 using MinimalistArchitecture;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // database configurations
 builder.Services.AddDbContext<TodoDb>(opt => opt.UseInMemoryDatabase("TodoList"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+// validation setup
+builder.Services.AddValidatorsFromAssemblyContaining<TodoValidator>(ServiceLifetime.Singleton);
 
 // swagger setup
 builder.Services.AddEndpointsApiExplorer();
@@ -30,7 +34,7 @@ builder.Services.AddSwaggerGen(options =>
 var app = builder.Build();
 
 // register routes
-RouteManager.RegisterRoutes(app);
+ServiceManager.RegisterRoutes(app);
 
 // if application is not in development then use an exception route
 if (!app.Environment.IsDevelopment())
@@ -47,5 +51,5 @@ else
 // use routing
 app.UseHttpsRedirection();
 
-// 
+// run the application
 app.Run();
