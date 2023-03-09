@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using MinimalistArchitecture.Abstract;
 
@@ -21,20 +22,23 @@ public class TodoService : Service
         todoItems.MapDelete("/{id}", DeleteTodo);
     }
 
-    public static async Task<IResult> GetAllTodos(TodoDb db)
+    [Authorize]
+    public async Task<IResult> GetAllTodos(TodoDb db)
     {
         return TypedResults.Ok(await db.Todos.Select(x => new TodoDTO(x)).ToArrayAsync());
     }
 
-    public static async Task<IResult> GetTodo(int id, TodoDb db)
+    [Authorize]
+    public async Task<IResult> GetTodo(int id, TodoDb db)
     {
         return await db.Todos.FindAsync(id)
             is Todo todo
                 ? TypedResults.Ok(new TodoDTO(todo))
                 : TypedResults.NotFound();
-    }
+    }           
 
-    public static async Task<IResult> CreateTodo([Validate] TodoDTO todoItemDTO, TodoDb db)
+    [Authorize]
+    public async Task<IResult> CreateTodo([Validate] TodoDTO todoItemDTO, TodoDb db)
     {
         var todoItem = new Todo
         {
@@ -48,7 +52,8 @@ public class TodoService : Service
         return TypedResults.Created($"/todoitems/{todoItem.Id}", todoItemDTO);
     }
 
-    public static async Task<IResult> UpdateTodo(int id, [Validate] TodoDTO todoItemDTO, TodoDb db)
+    [Authorize]
+    public async Task<IResult> UpdateTodo(int id, [Validate] TodoDTO todoItemDTO, TodoDb db)
     {
         var todo = await db.Todos.FindAsync(id);
 
@@ -62,7 +67,8 @@ public class TodoService : Service
         return TypedResults.NoContent();
     }
 
-    public static async Task<IResult> DeleteTodo(int id, TodoDb db)
+    [Authorize]
+    public async Task<IResult> DeleteTodo(int id, TodoDb db)
     {
         if (await db.Todos.FindAsync(id) is Todo todo)
         {
