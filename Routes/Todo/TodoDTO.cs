@@ -1,8 +1,9 @@
-﻿namespace MinimalistArchitecture.Todo
+﻿using MinimalistArchitecture.Abstract;
+
+namespace MinimalistArchitecture.Todo
 {
-	public class TodoDTO
+	public class TodoDTO : DTO
 	{
-        public int Id { get; set; }
         public string? Name { get; set; }
         public bool IsComplete { get; set; }
 
