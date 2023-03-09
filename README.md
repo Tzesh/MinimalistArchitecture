@@ -3,6 +3,6 @@ Minimalist .NET 7 minimal API architecture with
 
 - FluentValidation,
 - Swagger,
-- Authentication (On development),
+- JWT Bearer Authentication,
 - XUnit (On development),
 - and Logging (On development).
