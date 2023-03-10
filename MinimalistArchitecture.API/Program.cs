@@ -8,8 +8,20 @@ using MinimalistArchitecture.Common;
 using MinimalistArchitecture.Routes.Todo;
 using MinimalistArchitecture.Routes.User;
 using MinimalistArchitecture.Common.Abstract;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// default logging providers
+builder.Logging.ClearProviders();
+
+// use Serilog for logging
+builder.Host.UseSerilog((hostContext, services, configuration) =>
+{
+    configuration
+        .WriteTo.File($"./Log/{System.DateTime.Now.ToString("MM.dd.yyyy HH:mm")}.txt")
+        .WriteTo.Console();
+});
 
 // add JWT configuration
 builder.Services.AddAuthentication(o =>
@@ -23,7 +35,7 @@ builder.Services.AddAuthentication(o =>
     o.RequireHttpsMetadata = false;
     o.TokenValidationParameters = new TokenValidationParameters
     {
-       ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey
             (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
@@ -126,5 +138,5 @@ app.Run();
 // add partial class to access program.cs from tests of the endpoints
 namespace MinimalistArchitecture
 {
-public partial class Program { }
+    public partial class Program { }
 }

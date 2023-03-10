@@ -406,3 +406,6 @@ ASALocalRun/
 
 # vscode files
 .vscode/*
+
+# Serilog files
+Log/*
