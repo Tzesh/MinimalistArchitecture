@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MinimalistArchitecture.Todo;
 using Microsoft.OpenApi.Models;
-using MinimalistArchitecture;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using MinimalistArchitecture.Abstract;
-using MinimalistArchitecture.User;
+using MinimalistArchitecture.Common;
+using MinimalistArchitecture.Routes.Todo;
+using MinimalistArchitecture.Routes.User;
+using MinimalistArchitecture.Common.Abstract;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,16 +19,19 @@ builder.Services.AddAuthentication(o =>
     o.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(o =>
 {
+    o.SaveToken = true;
+    o.RequireHttpsMetadata = false;
     o.TokenValidationParameters = new TokenValidationParameters
     {
        ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey
             (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-        ValidateIssuer = true,
-        ValidateAudience = true,
+        ValidateIssuer = false,
+        ValidateAudience = false,
         ValidateLifetime = false,
-        ValidateIssuerSigningKey = true
+        ValidateIssuerSigningKey = false,
+        ClockSkew = TimeSpan.Zero
     };
 });
 
@@ -79,7 +82,7 @@ builder.Services.AddSwaggerGen(options =>
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
+        Type = SecuritySchemeType.Http,
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
@@ -105,6 +108,7 @@ else
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
 // use routing
@@ -118,3 +122,9 @@ app.UseAuthorization();
 
 // run the application
 app.Run();
+
+// add partial class to access program.cs from tests of the endpoints
+namespace MinimalistArchitecture
+{
+public partial class Program { }
+}

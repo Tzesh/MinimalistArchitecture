@@ -1,4 +1,4 @@
-namespace MinimalistArchitecture.Abstract
+namespace MinimalistArchitecture.Common.Abstract
 {
     public abstract class DTO
     {

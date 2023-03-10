@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalistArchitecture.API", "MinimalistArchitecture.API.csproj", "{5C69B1E0-DF12-4FC1-8BC9-B3F49C321D81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C69B1E0-DF12-4FC1-8BC9-B3F49C321D81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C69B1E0-DF12-4FC1-8BC9-B3F49C321D81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C69B1E0-DF12-4FC1-8BC9-B3F49C321D81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C69B1E0-DF12-4FC1-8BC9-B3F49C321D81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7AF95E1A-3CF0-464D-AE34-AF0219A78DDB}
+	EndGlobalSection
+EndGlobal

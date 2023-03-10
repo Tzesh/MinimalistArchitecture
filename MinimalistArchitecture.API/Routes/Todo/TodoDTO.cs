@@ -1,6 +1,6 @@
-﻿using MinimalistArchitecture.Abstract;
+﻿using MinimalistArchitecture.Common.Abstract;
 
-namespace MinimalistArchitecture.Todo
+namespace MinimalistArchitecture.Routes.Todo
 {
 	public class TodoDTO : DTO
 	{

@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using MinimalistArchitecture.Abstract;
+using MinimalistArchitecture.Common;
+using MinimalistArchitecture.Common.Abstract;
 
-namespace MinimalistArchitecture.Todo;
+namespace MinimalistArchitecture.Routes.Todo;
 public class TodoService : Service
 {
     // constructor
@@ -15,21 +16,21 @@ public class TodoService : Service
         todoItems.AddEndpointFilterFactory(ValidationFactory.ValidationFilterFactory);
 
         // add the routes to the group
-        todoItems.MapGet("/", GetAllTodos);
-        todoItems.MapGet("/{id}", GetTodo);
-        todoItems.MapPost("/", CreateTodo);
-        todoItems.MapPut("/{id}", UpdateTodo);
-        todoItems.MapDelete("/{id}", DeleteTodo);
+        todoItems.MapGet("/", GetAll);
+        todoItems.MapGet("/{id}", Get);
+        todoItems.MapPost("/", Create);
+        todoItems.MapPut("/{id}", Update);
+        todoItems.MapDelete("/{id}", Delete);
     }
 
     [Authorize]
-    public async Task<IResult> GetAllTodos(TodoDb db)
+    public async Task<IResult> GetAll(TodoDb db)
     {
         return TypedResults.Ok(await db.Todos.Select(x => new TodoDTO(x)).ToArrayAsync());
     }
 
     [Authorize]
-    public async Task<IResult> GetTodo(int id, TodoDb db)
+    public async Task<IResult> Get(Guid id, TodoDb db)
     {
         return await db.Todos.FindAsync(id)
             is Todo todo
@@ -38,7 +39,7 @@ public class TodoService : Service
     }           
 
     [Authorize]
-    public async Task<IResult> CreateTodo([Validate] TodoDTO todoItemDTO, TodoDb db)
+    public async Task<IResult> Create([Validate] TodoDTO todoItemDTO, TodoDb db)
     {
         var todoItem = new Todo
         {
@@ -53,7 +54,7 @@ public class TodoService : Service
     }
 
     [Authorize]
-    public async Task<IResult> UpdateTodo(int id, [Validate] TodoDTO todoItemDTO, TodoDb db)
+    public async Task<IResult> Update(Guid id, [Validate] TodoDTO todoItemDTO, TodoDb db)
     {
         var todo = await db.Todos.FindAsync(id);
 
@@ -68,7 +69,7 @@ public class TodoService : Service
     }
 
     [Authorize]
-    public async Task<IResult> DeleteTodo(int id, TodoDb db)
+    public async Task<IResult> Delete(int id, TodoDb db)
     {
         if (await db.Todos.FindAsync(id) is Todo todo)
         {

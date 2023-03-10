@@ -2,11 +2,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MinimalistArchitecture.Abstract;
+using Microsoft.OpenApi.Models;
+using MinimalistArchitecture.Common;
+using MinimalistArchitecture.Common.Abstract;
 
-namespace MinimalistArchitecture.User;
+namespace MinimalistArchitecture.Routes.User;
 public class UserService : Service
 {
     private IConfiguration _configuration;
@@ -62,14 +65,14 @@ public class UserService : Service
         var audience = _configuration["Jwt:Audience"];
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+        var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
         
         // create a new token
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new []
             {
-                new Claim("Id", "1"),
+                new Claim("Id", User.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, User.Name),
                 new Claim(JwtRegisteredClaimNames.Email, User.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
@@ -78,6 +81,7 @@ public class UserService : Service
             Expires = DateTime.UtcNow.AddHours(12),
             Audience = audience,
             Issuer = issuer,
+            NotBefore = DateTime.UtcNow,
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
         };
 

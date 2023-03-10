@@ -1,7 +1,7 @@
 using FluentValidation;
-using MinimalistArchitecture.Abstract;
+using MinimalistArchitecture.Common.Abstract;
 
-namespace MinimalistArchitecture.Todo;
+namespace MinimalistArchitecture.Routes.Todo;
 public class TodoValidator : Validator<TodoDTO>
     {
         public TodoValidator()

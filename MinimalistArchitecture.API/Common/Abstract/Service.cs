@@ -1,4 +1,4 @@
-namespace MinimalistArchitecture.Abstract
+namespace MinimalistArchitecture.Common.Abstract
 {
     /// <summary>
     /// An abstract class that contains all routes of a context

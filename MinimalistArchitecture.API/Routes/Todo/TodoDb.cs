@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace MinimalistArchitecture.Todo
+namespace MinimalistArchitecture.Routes.Todo
 {
     public class TodoDb : DbContext
     {
