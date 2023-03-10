@@ -5,4 +5,4 @@ Minimalist .NET 7 minimal API architecture with
 - Swagger,
 - JWT Bearer Authentication,
 - xUnit,
-- and Logging (On development).
+- and Serilog
