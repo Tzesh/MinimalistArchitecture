@@ -1,7 +1,7 @@
 using System.Reflection;
-using MinimalistArchitecture.Abstract;
+using MinimalistArchitecture.Common.Abstract;
 
-namespace MinimalistArchitecture;
+namespace MinimalistArchitecture.Common;
 
 /// <summary>
 /// A class that registers all routes in the application

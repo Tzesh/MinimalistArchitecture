@@ -1,4 +1,4 @@
-namespace MinimalistArchitecture.User;
+namespace MinimalistArchitecture.Routes.User;
 
 public class User
 {

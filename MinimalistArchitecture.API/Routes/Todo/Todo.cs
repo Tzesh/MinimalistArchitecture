@@ -1,4 +1,4 @@
-﻿namespace MinimalistArchitecture.Todo
+﻿namespace MinimalistArchitecture.Routes.Todo
 {
 	public class Todo
 	{

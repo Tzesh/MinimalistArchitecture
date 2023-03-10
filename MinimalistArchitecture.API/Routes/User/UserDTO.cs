@@ -1,6 +1,6 @@
-using MinimalistArchitecture.Abstract;
+using MinimalistArchitecture.Common.Abstract;
 
-namespace MinimalistArchitecture.User
+namespace MinimalistArchitecture.Routes.User
 {
     public class UserDTO : DTO
     {

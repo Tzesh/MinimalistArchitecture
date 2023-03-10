@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace MinimalistArchitecture.Abstract;
+namespace MinimalistArchitecture.Common.Abstract;
 
 /// <summary>
 /// Base class for all validators

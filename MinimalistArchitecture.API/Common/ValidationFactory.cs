@@ -2,7 +2,7 @@ using System.Net;
 using System.Reflection;
 using FluentValidation;
 
-namespace MinimalistArchitecture
+namespace MinimalistArchitecture.Common
 {
     /// <summary>
     /// A class that contains a factory method for creating a validation filter
